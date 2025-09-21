@@ -1,0 +1,27 @@
+<h2>PHQ-9 Depression Assessment</h2>
+<form method="post">
+    {% csrf_token %}
+    <div>
+        <label>1. Little interest or pleasure in doing things?</label><br>
+        <select name="q1">
+            <option value="0">Not at all (0)</option>
+            <option value="1">Several days (1)</option>
+            <option value="2">More than half the days (2)</option>
+            <option value="3">Nearly every day (3)</option>
+        </select>
+    </div>
+    <br>
+    <div>
+        <label>2. Feeling down, depressed, or hopeless?</label><br>
+        <select name="q2">
+            <option value="0">Not at all (0)</option>
+            <option value="1">Several days (1)</option>
+            <option value="2">More than half the days (2)</option>
+            <option value="3">Nearly every day (3)</option>
+        </select>
+    </div>
+    <br>
+    <!-- Repeat for q3 to q9 with real PHQ-9 questions -->
+    <!-- ... -->
+    <button type="submit">Submit</button>
+</form>
