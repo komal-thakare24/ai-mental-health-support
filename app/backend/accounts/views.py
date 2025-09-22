@@ -71,3 +71,6 @@ def logout_view(request):
     """Logout user"""
     logout(request)
     return redirect("login")
+
+def home(request):
+    return render(request, "home.html")

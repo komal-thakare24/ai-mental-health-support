@@ -1,4 +1,4 @@
-def calculate_score(assessment_type, responses):
+def calculate_phq9_score(assessment_type, responses):
     """
     Calculate total score and risk level for PHQ-9 / GAD-7
     responses: list of integers (0–3 for each question)
