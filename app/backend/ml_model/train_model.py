@@ -1,4 +1,4 @@
-# ml-model/train_model.py
+# ml_model/train_model.py
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import train_test_split
@@ -8,41 +8,46 @@ from sklearn.metrics import classification_report, accuracy_score
 import joblib
 import os
 
-DATA_PATH = "ml-model/assessments_dataset.csv"
-MODEL_DIR = "ml-model/saved_model"
+# Path setup
+DATA_PATH = "data/phq9data.xlsx"
+MODEL_DIR = "ml_model/saved_model"
 os.makedirs(MODEL_DIR, exist_ok=True)
 
-df = pd.read_csv(DATA_PATH)
-# Features q1..q9 (for PHQ-9) - automatically select q1..q9 columns
-feature_cols = [c for c in df.columns if c.startswith("q")]
+print(f"Loading dataset from {os.path.abspath(DATA_PATH)} ...")
+df = pd.read_excel(DATA_PATH)
+
+print("Columns in dataset:", list(df.columns))
+
+# Features (Q1..Q9)
+feature_cols = [c for c in df.columns if c.upper().startswith("Q")]
 X = df[feature_cols].values
+print("Selected features:", feature_cols)
 
-# We convert risk_level to numeric classes
+# Target: Risk_Level → make sure all are strings
+df["Risk_Level"] = df["Risk_Level"].astype(str)
 le = LabelEncoder()
-y = le.fit_transform(df["risk_level"])
+y = le.fit_transform(df["Risk_Level"])
 
-# Save label encoder so we can map back
+# Save label encoder
 joblib.dump(le, os.path.join(MODEL_DIR, "label_encoder.joblib"))
 
-# train-test split
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.15, random_state=42, stratify=y)
+# Train-test split
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.15, random_state=42, stratify=y
+)
 
-# Simple MLP classifier
-clf = MLPClassifier(hidden_layer_sizes=(32,16), max_iter=500, random_state=42)
+# MLP Classifier
+clf = MLPClassifier(hidden_layer_sizes=(32, 16), max_iter=500, random_state=42)
 clf.fit(X_train, y_train)
 
 # Evaluate
 y_pred = clf.predict(X_test)
-print("Accuracy:", accuracy_score(y_test, y_pred))
-print(classification_report(y_test, y_pred, target_names=le.classes_))
+print("✅ Accuracy:", accuracy_score(y_test, y_pred))
+
+# Safe classification report
+report = classification_report(y_test, y_pred, target_names=le.classes_, zero_division=0)
+print(report)
 
 # Save model
 joblib.dump(clf, os.path.join(MODEL_DIR, "phq9_mlp.joblib"))
-print("Model saved to", MODEL_DIR)
-# To load the model and label encoder later:
-# clf = joblib.load(os.path.join(MODEL_DIR, "phq9_mlp.joblib"))
-# le = joblib.load(os.path.join(MODEL_DIR, "label_encoder.joblib"))
-# predictions = clf.predict(new_data)
-# predicted_labels = le.inverse_transform(predictions)
-# predicted_probs = clf.predict_proba(new_data)
-# predicted_probabilities = np.max(clf.predict_proba(new_data), axis=1)
+print("📌 Model & label encoder saved to", MODEL_DIR)

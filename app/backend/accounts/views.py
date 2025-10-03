@@ -5,9 +5,12 @@ from django.contrib import messages
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-
 from .serializers import UserRegisterSerializer
 from .models import User
+from django.shortcuts import render
+from django.http import JsonResponse
+from ml_model.predict import predict_risk   # import our function
+import json
 
 # ------------------- REST API REGISTER (for future React frontend) -------------------
 class RegisterView(APIView):
@@ -75,3 +78,33 @@ def logout_view(request):
 def home(request):
    return render(request, "home.html")
 
+def phq9_result(request):
+    if request.method == "POST":
+        try:
+            # Collect answers from POST form
+            answers = [
+                int(request.POST.get("Q1")),
+                int(request.POST.get("Q2")),
+                int(request.POST.get("Q3")),
+                int(request.POST.get("Q4")),
+                int(request.POST.get("Q5")),
+                int(request.POST.get("Q6")),
+                int(request.POST.get("Q7")),
+                int(request.POST.get("Q8")),
+                int(request.POST.get("Q9")),
+            ]
+            
+            # Call ML model
+            result = predict_risk(answers)
+            
+            # Render result page
+            return render(request, "accounts/phq9_result.html", {
+                "prediction": result["predicted_class"],
+                "confidence": result["confidence"]
+            })
+        
+        except Exception as e:
+            return JsonResponse({"error": str(e)}, status=500)
+    
+    # If GET request, just return empty page
+    return render(request, "accounts/phq9_form.html")
