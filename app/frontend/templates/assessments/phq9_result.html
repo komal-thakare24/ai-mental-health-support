@@ -1,0 +1,11 @@
+{% extends "accounts/base.html" %}
+{% block title %}PHQ-9 Result{% endblock %}
+{% block content %}
+  <div class="container">
+    <h2>PHQ-9 Depression Assessment Result</h2>
+    <p>Your PHQ-9 Score: <strong>{{ score }}</strong></p>
+    <p>Depression Severity: <strong>{{ severity }}</strong></p>
+    <a href="{% url 'assessments:phq9_form' %}" class="btn btn-secondary">Retake</a>
+    <a href="{% url 'dashboard' %}" class="btn btn-primary">Back to Dashboard</a>
+  </div>
+{% endblock %}
