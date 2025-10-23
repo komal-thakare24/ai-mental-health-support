@@ -1,28 +1,44 @@
-{% extends 'accounts/base.html' %}
-{% block title %}Dashboard{% endblock %}
+{% extends 'base.html' %}
+{% load static %}
 {% block content %}
-<div class="dashboard-container">
-    <h2>Hello, {{ request.user.email }} 🌿</h2>
-    <p>We’re glad to see you taking steps towards your mental well-being.</p>
 
-    <div class="cards">
-        <div class="card">
-            <h3>📊 Start Assessment</h3>
-            <p>Take a PHQ-9 or GAD-7 test to track your mental health.</p>
-            <a class="btn btn-primary" href="{% url 'assessments:phq9_form' %}">Start PHQ-9</a>
-        </div>
+<section class="dashboard">
+  <div class="welcome-section">
+    <h2>Welcome back, {{ request.user.username|default:request.user.email }}</h2>
+    <p>Your safe space to track, reflect, and grow 🌱</p>
+  </div>
 
-        <div class="card">
-            <h3>📝 Previous Results</h3>
-            <p>View your past assessments and progress.</p>
-            <a href="#" class="btn">View History</a>
-        </div>
-
-        <div class="card">
-            <h3>💬 Chatbot</h3>
-            <p>Get helpful coping strategies and calming activities.</p>
-            <a href="#" class="btn">Open Chatbot</a>
-        </div>
+  <div class="cards-container">
+    <div class="card" id="test-card">
+      <img src="{% static 'images/quiz-icon.png' %}" alt="Mental Health Test">
+      <h3>Take Assessment</h3>
+      <p>Check your mental health with our quick PHQ-9 and GAD-7 assessments.</p>
+      <button onclick="goTo('/accounts/phq9/')">Start Test</button>
     </div>
-</div>
+
+    <div class="card" id="chatbot-card">
+      <img src="{% static 'images/chatbot-icon.png' %}" alt="AI Chatbot">
+      <h3>AI Chatbot Support</h3>
+      <p>Talk to your AI companion anytime for emotional support and guidance.</p>
+      <button onclick="goTo('/chatbot/')">Open Chat</button>
+    </div>
+
+    <div class="card" id="progress-card">
+      <img src="{% static 'images/progress-icon.png' %}" alt="Progress Tracker">
+      <h3>View Progress</h3>
+      <p>Track how your mental wellness improves over time with personalized insights.</p>
+      <button onclick="goTo('/accounts/progress/')">View Progress</button>
+    </div>
+
+    <div class="card" id="logout-card">
+      <img src="{% static 'images/logout-icon.png' %}" alt="Logout">
+      <h3>Logout</h3>
+      <p>End your session securely and come back anytime.</p>
+      <button onclick="goTo('/accounts/logout/')">Logout</button>
+    </div>
+  </div>
+</section>
+
+<script src="{% static 'js/dashboard.js' %}"></script>
+
 {% endblock %}
