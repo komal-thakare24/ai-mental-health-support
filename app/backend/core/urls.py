@@ -22,6 +22,12 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('api.urls')),
     path('accounts/', include(('accounts.urls', 'accounts'), namespace='accounts')),  # keep accounts under /accounts/ with namespace
-    path('assessment/', include('assessments.urls')),
+    path('assessments/', include('assessments.urls')), 
     path('', accounts_views.home, name='home'),  # single home route
+    path('dashboard/', accounts_views.dashboard, name='dashboard'),
+    path('profile/', accounts_views.profile_view, name='profile'),
+    path('mood/', include('mood.urls')),
+    
+
+    
 ]
