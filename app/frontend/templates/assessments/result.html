@@ -1,0 +1,85 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assessment Results</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'result.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <!-- Header -->
+            <div class="result-header">
+                <div class="icon-container">
+                    <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                </div>
+                <h1>Assessment Complete</h1>
+                <p class="test-type" id="testType">PHQ-9 Depression Test</p>
+            </div>
+
+            <!-- Score Display -->
+            <div class="score-section">
+                <div class="score-card">
+                    <p class="score-label">Your Score</p>
+                    <h2 class="score-value" id="scoreValue">12</h2>
+                    <p class="score-max">out of <span id="maxScore">27</span></p>
+                </div>
+
+                <div class="severity-badge" id="severityBadge">
+                    <span class="severity-text" id="severityText">Moderate</span>
+                </div>
+            </div>
+
+            <!-- Interpretation -->
+            <div class="interpretation-section">
+                <h3>What This Means</h3>
+                <p class="interpretation-text" id="interpretationText">
+                    Your results suggest moderate symptoms. It's important to acknowledge these feelings and consider reaching out for support.
+                </p>
+
+                <div class="recommendations">
+                    <h4>Recommendations:</h4>
+                    <ul id="recommendationsList">
+                        <li>Practice mindfulness and relaxation techniques</li>
+                        <li>Maintain a regular sleep schedule</li>
+                        <li>Consider speaking with a mental health professional</li>
+                        <li>Stay connected with supportive friends and family</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Chart Visualization -->
+            <div class="chart-section">
+                <h3>Score Breakdown</h3>
+                <canvas id="scoreChart"></canvas>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <button class="btn btn-primary" onclick="goToDashboard()">
+                    Back to Dashboard
+                </button>
+                <button class="btn btn-secondary" onclick="viewExplainability()">
+                    View Detailed Analysis
+                </button>
+            </div>
+
+            <!-- Footer Info -->
+            <div class="footer-info">
+                <p class="disclaimer">
+                    <strong>Note:</strong> This screening is not a diagnosis. Please consult with a qualified mental health professional for proper evaluation and treatment.
+                </p>
+                <p class="test-date" id="testDate">Completed on: October 28, 2025</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'js/phq9_form.js' %}"></script>
+</body>
+</html>

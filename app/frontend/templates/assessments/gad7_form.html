@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PHQ-9 Depression Test</title>
+    <title>GAD-7 Anxiety Test</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/phq9_form.css' %}">
+    <link rel="stylesheet" href="{% static 'css/gad7_form.css' %}">
 </head>
 <body>
     <div class="container">
@@ -14,8 +14,8 @@
             <!-- Progress Header -->
             <div class="progress-header">
                 <div class="progress-info">
-                    <h2>PHQ-9 Depression Test</h2>
-                    <p class="question-counter">Question <span id="currentQuestion">1</span> of <span id="totalQuestions">9</span></p>
+                    <h2>GAD-7 Anxiety Test</h2>
+                    <p class="question-counter">Question <span id="currentQuestion">1</span> of <span id="totalQuestions">7</span></p>
                 </div>
                 <div class="progress-bar-container">
                     <div class="progress-bar" id="progressBar"></div>
@@ -83,6 +83,6 @@
         </div>
     </div>
 
-    <script src="{% static 'js/phq9_form.js' %}"></script>
+    <script src="{% static 'js/gad7_form.js' %}"></script>
 </body>
 </html>

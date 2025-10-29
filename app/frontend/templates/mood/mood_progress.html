@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mood Progress</title>
+  <link rel="stylesheet" href="{% static 'css/mood_progress.css' %}?v=1" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1>Your Mood Progress</h1>
+      <p>Track your emotional well-being over time and discover your patterns.</p>
+    </header>
+
+    <section class="chart-section">
+      <div class="chart-card">
+        <canvas id="moodChart"></canvas>
+      </div>
+    </section>
+
+    <section class="stats-section">
+      <div class="stat-card happy">
+        <h3>😊 Most Common Mood</h3>
+        <p id="commonMood">Loading...</p>
+      </div>
+      <div class="stat-card calm">
+        <h3>📅 Total Days Logged</h3>
+        <p id="totalDays">0</p>
+      </div>
+      <div class="stat-card focus">
+        <h3>📈 Average Mood</h3>
+        <p id="averageMood">0</p>
+      </div>
+    </section>
+
+    <div class="footer">
+      <a href="{% url 'mood:mood_tracker' %}" class="btn">← Back to Mood Tracker</a>
+      <a href="{% url 'accounts:dashboard' %}" class="btn">🏠 Dashboard</a>
+    </div>
+  </div>
+
+  <script src="{% static 'js/mood_progress.js' %}?v=1"></script>
+</body>
+</html>

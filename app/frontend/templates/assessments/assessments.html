@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mental Health Assessment</title>
+
+    <!-- ✅ CSS -->
+    <link rel="stylesheet" href="{% static 'css/assessments.css' %}?v=2">
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="header">
+                <h1>🧠 Choose Your Mental Health Assessment</h1>
+                <p class="subtitle">Select which screening you’d like to take today.</p>
+            </div>
+
+            <div class="assessments-blocks">
+                <!-- PHQ-9 Assessment Block -->
+                <div class="assessments-card">
+                    <h2>PHQ-9 (Depression Test)</h2>
+                    <p class="description">
+                        Answer 9 short questions to understand your current mood and energy level.
+                    </p>
+                    <a href="{% url 'assessments:phq9_assessment' %}" class="btn-primary">
+                        Take PHQ-9 Test →
+                    </a>
+                </div>
+
+                <!-- GAD-7 Assessment Block -->
+                <div class="assessments-card">
+                    <h2>GAD-7 (Anxiety Test)</h2>
+                    <p class="description">
+                        Evaluate how anxiety affects your daily life with a short 7-question quiz.
+                    </p>
+                    <a href="{% url 'assessments:gad7_assessment' %}" class="btn-primary">
+                        Take GAD-7 Test →
+                    </a>
+                </div>
+            </div>
+
+            <div class="footer">
+                <a href="{% url 'accounts:dashboard' %}" class="back-link">← Back to Dashboard</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ✅ JS -->
+    <script src="{% static 'js/assessments.js' %}?v=2"></script>
+</body>
+</html>

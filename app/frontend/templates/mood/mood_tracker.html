@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mood Tracker - MindEase</title>
+
+    <!-- ✅ CSS -->
+    <link rel="stylesheet" href="{% static 'css/mood_tracker.css' %}?v=1">
+</head>
+<body class="gradient-bg">
+    <div class="container">
+        <header>
+            <h1>🌤️ Log Your Mood</h1>
+            <p>Track how you’re feeling and what influenced your day.</p>
+        </header>
+
+        <form id="moodForm" class="mood-form" method="POST">
+            {% csrf_token %}
+            
+            <div class="card">
+                <label for="mood">How are you feeling today?</label>
+                <select id="mood" name="mood" required>
+                    <option value="">Select mood...</option>
+                    <option value="happy">😊 Happy</option>
+                    <option value="calm">😌 Calm</option>
+                    <option value="stressed">😣 Stressed</option>
+                    <option value="sad">😢 Sad</option>
+                    <option value="anxious">😰 Anxious</option>
+                </select>
+            </div>
+
+            <div class="card">
+                <label>What affected your mood today?</label>
+                <div class="checkbox-group">
+                    <label><input type="checkbox" name="activities" value="work"> Work</label>
+                    <label><input type="checkbox" name="activities" value="family"> Family</label>
+                    <label><input type="checkbox" name="activities" value="friends"> Friends</label>
+                    <label><input type="checkbox" name="activities" value="sleep"> Sleep</label>
+                    <label><input type="checkbox" name="activities" value="exercise"> Exercise</label>
+                    <label><input type="checkbox" name="activities" value="diet"> Diet</label>
+                </div>
+            </div>
+
+            <div class="card">
+                <label for="notes">Any thoughts you'd like to share?</label>
+                <textarea id="notes" name="notes" placeholder="Write a short reflection..."></textarea>
+            </div>
+
+            <button type="submit" class="btn-primary">Save Mood</button>
+            <a href="{% url 'accounts:dashboard' %}" class="back-link">← Back to Dashboard</a>
+        </form>
+
+        <!-- Success message -->
+        <div id="successMsg" class="hidden success-popup">
+            🌟 Mood saved successfully!
+        </div>
+    </div>
+
+    <!-- ✅ JS -->
+    <script src="{% static 'js/mood_tracker.js' %}?v=1"></script>
+</body>
+</html>
